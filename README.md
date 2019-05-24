@@ -1,5 +1,7 @@
 # Tower Defense using Phaser 3
 
+## Description
+This is a Tower Defense game that utilizes the Phaser 3 framework for Node.js, HTML games.
 
 ## Requirements
 
