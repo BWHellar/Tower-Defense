@@ -110,7 +110,7 @@ export default class PreloaderScene extends Phaser.Scene
     this.load.image('bullet', 'src/assets/level/Bullet.png');
     this.load.image('tower', 'src/assets/level/tankRed.png');
     this.load.image('tankSand', 'src/assets/level/tankSand.png');
-    this.load.image('tankBody', 'src/assets/level/tankBody.png');
+    this.load.image('base', 'src/assets/level/tankBody.png');
     this.load.image('cursor', 'src/assets/ui/cursor.png');
     this.load.image('title', 'src/assets/ui/title.png');
     this.load.image('blueButton1', 'src/assets/ui/blueButton1.png');
@@ -129,7 +129,7 @@ export default class PreloaderScene extends Phaser.Scene
     this.readyCount++;
     if (this.readyCount ===2)
     {
-      this.scene.start('Title');
+      this.scene.start('Game');
     }
   }
 }

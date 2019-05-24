@@ -21,11 +21,11 @@
         {
          "columns":10,
          "firstgid":1,
-         "image":"..\/..\/tiled\/terrainTiles_default.png",
+         "image":"..\/..\/tiled\/terrain.png",
          "imageheight":256,
          "imagewidth":640,
          "margin":0,
-         "name":"terrainTiles_default",
+         "name":"terrain",
          "spacing":0,
          "tilecount":40,
          "tileheight":64,
