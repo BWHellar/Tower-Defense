@@ -3,7 +3,7 @@ import config from './config/config';
 import GameScene from './scenes/GameScene';
 import BootScene from './scenes/BootScene';
 import PreloaderScene from './scenes/PreloaderScene';
-import TitleScene from '/scenes/TitleScene';
+import TitleScene from './scenes/TitleScene';
 import UIScene from './scenes/UIScene';
 
 

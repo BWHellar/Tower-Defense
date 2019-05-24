@@ -12,7 +12,16 @@ export default class PreloaderScene extends Phaser.Scene
   {
     this.readyCount = 0;
   }
+
   preload()
+  {
+    //Timer Event
+    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.createPreLoader();
+    this.loadAsset();
+  }
+  // This is our preloader.
+  createPreLoader()
   {
     // The good thing about the Phaser framework is uses a Camera as it is specifically designed for games.
     var width = this.cameras.main.width;
@@ -93,11 +102,10 @@ export default class PreloaderScene extends Phaser.Scene
       percentText.destroy();
       this.ready();
     }.bind(this));
-
-    //Timer Event
-    this.timedEvent = this.time.delayedCall(1, this.ready, [], this);
-
-    // These are all the main assets in the game that we need to load.
+  }
+  // This is our function to load up all the assets we will be needing.
+  loadAsset()
+  {
     this.load.image('logo', 'src/assets/Smiley.png');
     this.load.image('bullet', 'src/assets/level/Bullet.png');
     this.load.image('tower', 'src/assets/level/tankRed.png');
@@ -115,11 +123,11 @@ export default class PreloaderScene extends Phaser.Scene
     this.load.tilemapTiledJSON('level1', 'src/assets/level/level1.json');
     this.load.spritesheet('terrain', 'src/assets/level/terrain.png', { frameWidth:64, frameHeight:64});
   }
-
+  // This function will fire when the game is ready to load to the title.
   ready()
   {
     this.readyCount++;
-    if(this.readCount ===2)
+    if (this.readyCount ===2)
     {
       this.scene.start('Title');
     }
