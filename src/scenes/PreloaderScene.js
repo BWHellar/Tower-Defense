@@ -95,7 +95,7 @@ export default class PreloaderScene extends Phaser.Scene
     }.bind(this));
 
     //Timer Event
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(1, this.ready, [], this);
 
     // These are all the main assets in the game that we need to load.
     this.load.image('logo', 'src/assets/Smiley.png');
@@ -121,7 +121,7 @@ export default class PreloaderScene extends Phaser.Scene
     this.readyCount++;
     if(this.readCount ===2)
     {
-      this.scene.start('Game');
+      this.scene.start('Title');
     }
   }
 }
