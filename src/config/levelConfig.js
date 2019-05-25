@@ -1,7 +1,8 @@
 export default {
-  inital: {
+  initial: {
     enemySpeed: 1/100000,
-    enemyHealth: 50
+    enemyHealth: 50,
+    bulletDamage: 25
   },
   incremental: {
     enemySpeed: 5,

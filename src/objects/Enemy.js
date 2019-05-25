@@ -39,9 +39,9 @@ export default class Enemy extends Phaser.GameObjects.Image {
 
   startOnPath() {
     // reset health
-    this.hp = levelConfig.inital.enemyHealth + levelConfig.incremental.enemyHealth;
+    this.hp = levelConfig.initial.enemyHealth + levelConfig.incremental.enemyHealth;
     // reset speed
-    this.enemySpeed =levelConfig.inital.enemySpeed * levelConfig.incremental.enemySpeed;
+    this.enemySpeed =levelConfig.initial.enemySpeed * levelConfig.incremental.enemySpeed;
 
     // set the t parameter at the start of the path
     this.follower.t = 0;
