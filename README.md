@@ -1,39 +1,37 @@
 # Tower Defense using Phaser 3
 
 ## Description
-This is a Tower Defense game that utilizes the Phaser 3 framework for Node.js, HTML games.
+This is a Tower Defense game that utilizes the Phaser 3 framework for Node.js, HTML games.  The goal of this game is to destroy the tanks.  Once the tanks in that level are defeated the next level will start and the game will slowly get harder.
 
-## Requirements
-
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
 
 ## Available Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm start` | Build project and open web server running project |
-| `npm run build` | Builds code bundle with production settings |
-
-## Writing Code
-
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development
-server by running `npm start`.
+| `Move Mouse` | This will allow you to decide where to place the turret. |
 
 
-After starting the development server with `npm start`, you can edit any files in the `src` folder
-and webpack will automatically recompile and reload your server (available at `http://localhost:8080`
-by default).
+
+## Setup/Installation Requirements
+
+-   Please clone from the Github repo https://github.com/BWHellar/Tower-Defense.git
+-   Navigate to your folder using the Console.
+-   Once you are in the folder type "npm install" in the console.
+-   Once it is completed type "npm run start" in the console.
+-   The game should boot up in the Web Browser. If it does not start then navigate to http://localhost:8080/.
 
 
-### Webpack
-If you want to customize your build, such as adding a new webpack loader or plugin (i.e. for loading CSS or fonts), you can
-modify the `webpack/base.js` file for cross-project changes, or you can modify and/or create
-new configuration files and target them in specific npm tasks inside of `package.json'.
+## Known Bugs
 
-## Deploying Code
-After you run the `npm run build` command, your code will be built into a single bundle located at
-`dist/bundle.min.js` along with any other assets you project depended.
+No known bugs
 
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`),
-you should be able to open `http://mycoolserver.com/index.html` and play your game.
+## Support and contact details
+
+If you have any issues please contact Brendan Hellar at bwhellar@gmail.com
+
+
+### License
+
+MIT
+
+Copyright (c) 2019 **Brendan Hellar**
