@@ -1,64 +1,66 @@
 import 'phaser';
 import levelConfig from '../config/levelConfig';
 
-export default class Enemy extends Phaser.GameObjects.Image
-{
-  constructor(scene, x, y, path)
-  {
+export default class Enemy extends Phaser.GameObjects.Image {
+  constructor(scene, x, y, path) {
     super(scene, x, y, 'enemy');
 
     this.scene = scene;
     this.path = path;
     this.hp = 0;
     this.enemySpeed = 0;
-    this.follower = {t: 0, vec: new Phaser.Math.Vector2() };
-    //Adds the enemy to the scenes
+    this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+    // add the enemy to our scene
     this.scene.add.existing(this);
   }
-  //Update function
-  update(time, delta)
-  {
-    //Move the t point along the Path
+
+  update(time, delta) {
+    // move the t point along the path
     this.follower.t += this.enemySpeed * delta;
 
+    // get x and y of the give t point
     this.path.getPoint(this.follower.t, this.follower.vec);
 
-    // Rotate Check
-    if(this.follower.vec.y > this.y && this.follower.vec.y !== this.y) this.angle = 0;
-    if(this.follower.vec.x > this.x && this.follower.vec.x !== this.x) this.angle = -90;
+    // rotate enemy
+    if (this.follower.vec.y > this.y && this.follower.vec.y !== this.y) this.angle = 0;
+    if (this.follower.vec.x > this.x && this.follower.vec.x !== this.x) this.angle = -90;
+
+    // set the x and y of our enemy
     this.setPosition(this.follower.vec.x, this.follower.vec.y);
 
-    //Check to see if the path is over
-    if (this.follower.t >=1)
-    {
+    // if we have reached the end of the path, remove the enemy
+    if (this.follower.t >= 1) {
       this.setActive(false);
       this.setVisible(false);
+      // TODO: update player health
     }
   }
-  // Where they start
-  startOnPath()
-  {
-    // reset helth
-    this.hp = levelConfig.initial.enemyHealth + levelConfig.incremental.enemyHealth;
-    // reset enemySpeed
-    this.enemySpeed = levelConfig.inital.enemySpeed * levelConfig.incremental.enemySpeed;
+
+  startOnPath() {
+    // reset health
+    this.hp = levelConfig.inital.enemyHealth + levelConfig.incremental.enemyHealth;
+    // reset speed
+    this.enemySpeed =levelConfig.inital.enemySpeed * levelConfig.incremental.enemySpeed;
+
+    // set the t parameter at the start of the path
     this.follower.t = 0;
 
-    // get x and y of given point of Path
+    // get x and y of the give t point
     this.path.getPoint(this.follower.t, this.follower.vec);
-    // And set it
+
+    // set the x and y of our enemy
     this.setPosition(this.follower.vec.x, this.follower.vec.y);
   }
-  // Updates Hp
-  recieveDamage(damage)
-  {
-    this.hp -=damage;
-    // If goes to zero
-    if(this.hp<=0)
-    {
-      // We set invisible because we want to do an object pool.
+
+  recieveDamage(damage) {
+    this.hp -= damage;
+
+    // if hp drops below 0, we deactive our enemy
+    if (this.hp <= 0) {
       this.setActive(false);
       this.setVisible(false);
+      // TODO: update our score
     }
   }
 }

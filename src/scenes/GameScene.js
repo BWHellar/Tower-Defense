@@ -39,7 +39,6 @@ export default class GameScene extends Phaser.Scene
       {
         enemy.setActive(true);
         enemy.setVisible(true);
-
         //Place Enemy at the start
         enemy.startOnPath();
 
