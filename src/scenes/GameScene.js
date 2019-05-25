@@ -1,5 +1,6 @@
 import 'phaser';
 import map from '../config/map';
+import Enemy from '../objects/Enemy';
 
 export default class GameScene extends Phaser.Scene
 {
@@ -13,13 +14,44 @@ export default class GameScene extends Phaser.Scene
     {
       return arr.slice();
     });
+    this.nextEnemy = 0;
   }
   create()
   {
     this.createMap();
     this.createPath();
     this.createCursor();
+    this.createGroups();
   }
+
+  update(time, delta)
+  {
+    // Checks if its time for new enemy
+    if (time > this.nextEnemy)
+    {
+      var enemy = this.enemies.getFirstDead();
+      if (!enemy)
+      {
+        enemy = new Enemy(this,0, 0, this.path);
+        this.enemies.add(enemy);
+      }
+      if(enemy)
+      {
+        enemy.setActive(true);
+        enemy.setVisible(true);
+
+        //Place Enemy at the start
+        enemy.startOnPath();
+
+        this.nextEnemy = time + 2000;
+      }
+    }
+  }
+  createGroups()
+  {
+    this.enemies = this.physics.add.group({classType: Enemy, runChildUpdate: true});
+  }
+  // This creates the cursor so we can tie it to the red box we used to place the turrets.
   createCursor()
   {
     this.cursor = this.add.image(32,32, 'cursor');
@@ -49,7 +81,7 @@ export default class GameScene extends Phaser.Scene
   {
     return this.map[i][j]===0;
   }
-
+  // This allows us to create the path that enemies will follow later.
   createPath()
   {
     this.graphics = this.add.graphics();
@@ -62,6 +94,7 @@ export default class GameScene extends Phaser.Scene
     this.graphics.lineStyle(3, 0xffffff, 1);
     this.path.draw(this.graphics);
   }
+  // This will create the map for us.
   createMap()
   {
     //Map Creation
