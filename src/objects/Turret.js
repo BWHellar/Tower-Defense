@@ -25,8 +25,8 @@ export default class Turret extends Phaser.GameObjects.Image{
 
   place(i, j)
   {
-    this.y = j * 64 + 32;
-    this.x = i * 54 + 32;
+    this.y = i * 64 + 32;
+    this.x = j * 64 + 32;
     this.map[i][j]= 1;
   }
 
