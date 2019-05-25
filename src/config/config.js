@@ -11,7 +11,8 @@ export default {
     default: 'arcade',
     arcade:
     {
-      debug: true,
+      // Turn on this if you need to work on physics
+      debug: false,
       gravity:
       {
         y: 0

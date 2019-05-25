@@ -16,7 +16,7 @@ export default class PreloaderScene extends Phaser.Scene
   preload()
   {
     //Timer Event
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(2000, this.ready, [], this);
     this.createPreLoader();
     this.loadAsset();
   }
@@ -116,9 +116,6 @@ export default class PreloaderScene extends Phaser.Scene
     this.load.image('blueButton1', 'src/assets/ui/blueButton1.png');
     this.load.image('blueButton2', 'src/assets/ui/blueButton2.png');
 
-    // This is just a logo we want to load.
-    this.load.image('logo2', 'src/assets/Smiley.png');
-
     // Since we are doing a tower defense we will be using a json file and then having out terrain populate the tilemap.
     this.load.tilemapTiledJSON('level1', 'src/assets/level/level1.json');
     this.load.spritesheet('terrain', 'src/assets/level/terrain.png', { frameWidth:64, frameHeight:64});
@@ -129,7 +126,7 @@ export default class PreloaderScene extends Phaser.Scene
     this.readyCount++;
     if (this.readyCount ===2)
     {
-      this.scene.start('Game');
+      this.scene.start('Title');
     }
   }
 }

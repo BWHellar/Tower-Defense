@@ -169,8 +169,9 @@ export default class GameScene extends Phaser.Scene
     this.path.lineTo(480, 164);
     this.path.lineTo(480, 544);
 
-    this.graphics.lineStyle(3, 0xffffff, 1);
-    this.path.draw(this.graphics);
+    // Uncomment to show lining
+    // this.graphics.lineStyle(3, 0xffffff, 1);
+    // this.path.draw(this.graphics);
   }
   // This will create the map for us.
   createMap()
