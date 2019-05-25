@@ -17,29 +17,32 @@ export default class GameScene extends Phaser.Scene
     {
       return arr.slice();
     });
+    this.level = 1;
     this.nextEnemy = 0;
     this.score = 0;
-    this.baseHealth = 3;
-    this.availableTurrets = 2;
+    this.baseHealth = levelConfig.initial.baseHealth;
+    this.availableTurrets = levelConfig.initial.numOfTurrets;
     this.roundStarted = false;
+    this.remainingEnemies = levelConfig.initial.numOfEnemies + this.level * levelConfig.incremental.numOfEnemies;
 
     this.events.emit('displayUI');
     this.events.emit('updateHealth', this.baseHealth);
     this.events.emit('updateScore', this.score);
     this.events.emit('updateTurrets', this.availableTurrets);
+    this.events.emit('updateEnemies', this.remainingEnemies);
 
     this.uiScene = this.scene.get('UI');
   }
 
   create()
   {
-    this.events.emit('startRound');
+    this.events.emit('startRound', this.level);
 
     this.uiScene.events.on('roundReady', function()
     {
       this.roundStarted = true;
     }.bind(this));
-    
+
     this.createMap();
     this.createPath();
     this.createCursor();
@@ -49,7 +52,7 @@ export default class GameScene extends Phaser.Scene
   update(time, delta)
   {
     // Checks if its time for new enemy
-    if (time> this.nextEnemy && this.roundStarted === true)
+    if (time> this.nextEnemy && this.roundStarted && this.enemies.countActive(true) < this.remainingEnemies)
     {
       var enemy = this.enemies.getFirstDead();
       if (!enemy)
@@ -63,7 +66,7 @@ export default class GameScene extends Phaser.Scene
         enemy.setVisible(true);
 
         //Place Enemy at the start
-        enemy.startOnPath();
+        enemy.startOnPath(this.level);
 
         this.nextEnemy = time +2000;
       }
@@ -88,10 +91,33 @@ export default class GameScene extends Phaser.Scene
     }
   }
 
-  updateTurrets()
+  updateTurrets(numberOfTurrets)
   {
-    this.availableTurrets--;
+    this.availableTurrets += numberOfTurrets;
     this.events.emit('updateTurrets', this.availableTurrets);
+  }
+
+  updateEnemies(numberOfEnemies)
+  {
+    this.remainingEnemies += numberOfEnemies;
+    this.events.emit('updateEnemies', this.remainingEnemies);
+    if (this.remainingEnemies <= 0)
+    {
+      this.increaseLevel();
+    }
+  }
+
+  increaseLevel()
+  {
+    // stop round
+    this.roundStarted = false;
+    // increment level
+    this.level++;
+    // increment number of turrets
+    this.updateTurrets(levelConfig.incremental.numOfTurrets);
+    // increment number of enemies
+    this.updateEnemies(levelConfig.initial.numOfEnemies + this.level * levelConfig.incremental.numOfEnemies);
+    this.events.emit('startRound', this.level);
   }
 
   createGroups()
@@ -198,7 +224,7 @@ export default class GameScene extends Phaser.Scene
       turret.setActive(true);
       turret.setVisible(true);
       turret.place(i,j);
-      this.updateTurrets();
+      this.updateTurrets(-1);
     }
   }
 
